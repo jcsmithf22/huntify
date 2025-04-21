@@ -8,3 +8,122 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+body {
+    --background-color: #ffffff;
+    --secondary-color: #e5e5e5;
+    --accent-color: #fca311;
+    --border-color: #cecece;
+    --primary-color: #14213d;
+    --text-color: #000000;
+
+    --default-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --active-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+    --size-01: 0.25rem;
+    --size-02: 0.5rem;
+    --size-03: 0.75rem;
+    --size-04: 1rem;
+    --size-05: 1.25rem;
+    --size-06: 1.5rem;
+    --size-07: 2rem;
+    --size-08: 2.5rem;
+    --size-09: 3rem;
+    --size-10: 3.5rem;
+    --size-11: 4rem;
+    --size-12: 4.5rem;
+    --size-13: 5rem;
+    --size-14: 6rem;
+
+    font-family: "Satoshi-Variable", sans-serif;
+
+    --text-size-sm: 0.875rem;
+    --text-size-base: 1rem;
+}
+
+main {
+    padding-block: var(--size-04);
+    padding-inline: var(--size-04);
+}
+
+:where(input:not([type="file"], [type="checkbox"], [type="radio"], [type="submit"])) {
+    outline: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--size-02);
+    padding-block: 0;
+    padding-inline: var(--size-02);
+    box-shadow: var(--default-shadow);
+    width: 100%;
+    height: var(--size-08);
+}
+
+:where(textarea) {
+    outline: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--size-02);
+    padding-block: var(--size-01);
+    padding-inline: var(--size-02);
+    box-shadow: var(--default-shadow);
+    width: 100%;
+}
+
+:where(input[type="checkbox"], input[type="radio"]) {
+    width: fit-content;
+}
+
+:where(select) {
+    outline: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--size-02);
+    padding-block: 0;
+    padding-inline: var(--size-02);
+    box-shadow: var(--default-shadow);
+    width: 100%;
+    height: var(--size-08);
+}
+
+[data-component="searches-form"] {
+    max-width: 32rem;
+}
+
+[data-slot="three-columns"] {
+    display: grid;
+    gap: var(--size-03);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+[data-slot="field"] {
+    margin-block-start: var(--size-03);
+    display: grid;
+    gap: var(--size-01);
+
+    & > span {
+        font-size: var(--text-size-base);
+    }
+}
+
+[data-slot="label"] {
+    font-size: var(--text-size-base);
+}
+
+[data-slot="input"] {
+    font-size: var(--text-size-base);
+}
+
+[data-slot="actions"] {
+    margin-block-start: var(--size-03);
+}
+
+@media (min-width: 600px) {
+    [data-slot="label"],
+    [data-slot="input"] {
+        font-size: var(--text-size-sm);
+    }
+
+    [data-slot="field"] {
+        & > span {
+            font-size: var(--text-size-sm);
+        }
+    }
+}
