@@ -58,9 +58,12 @@ main {
     padding-inline: var(--size-04);
 }
 
-:where(
-    input:not([type="file"], [type="checkbox"], [type="radio"], [type="submit"])
-) {
+a {
+    color: var(--text-color);
+}
+
+/* Form elements styling */
+input:not([type="file"], [type="checkbox"], [type="radio"], [type="submit"]) {
     border: 1px solid var(--border-color);
     border-radius: var(--rounded-base);
     padding-block: 0;
@@ -70,21 +73,30 @@ main {
     height: var(--size-08);
 }
 
-.field_with_errors :where(input, textarea, select) {
-    --focus-ring-color: var(--error-focus-color);
-    border-color: var(--error-color);
+.field_with_errors {
+    & input,
+    & textarea,
+    & select {
+        --focus-ring-color: var(--error-focus-color);
+        border-color: var(--error-color);
+    }
 }
 
-:where(input, button, textarea, select, a) {
+/* Focus states */
+input,
+button,
+textarea,
+select,
+a {
     outline: none;
     outline-offset: 0;
+
+    &:focus-visible {
+        outline: 3px solid var(--focus-ring-color);
+    }
 }
 
-:where(input, button, textarea, select, a):focus-visible {
-    outline: 3px solid var(--focus-ring-color);
-}
-
-:where(textarea) {
+textarea {
     border: 1px solid var(--border-color);
     border-radius: var(--rounded-base);
     padding-block: var(--size-01);
@@ -93,11 +105,13 @@ main {
     width: 100%;
 }
 
-:where(input[type="checkbox"], input[type="radio"]) {
+input[type="checkbox"],
+input[type="radio"] {
     width: fit-content;
 }
 
-:where(button),
+/* Button styles */
+button,
 [data-type="button"] {
     --button-border-color: var(--primary-color);
     --button-background-color: var(--primary-color);
@@ -106,7 +120,7 @@ main {
     background-color: var(--button-background-color);
     color: var(--button-text-color);
     cursor: pointer;
-    border: none;
+    border: 1px solid var(--button-border-color);
     padding-block: var(--size-01);
     padding-inline: var(--size-03);
     border-radius: var(--rounded-base);
@@ -116,39 +130,34 @@ main {
     align-items: center;
     width: fit-content;
     text-decoration: none;
-    border: 1px solid var(--button-border-color);
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        inset-block-start: 1px;
+        border-radius: calc(var(--rounded-base) - 1px);
+        box-shadow: 0 -1px 0 var(--background-color);
+        opacity: 40%;
+    }
+
+    &:hover {
+        opacity: 90%;
+    }
+
+    &[data-variant="outline"] {
+        --button-background-color: transparent;
+        --button-text-color: var(--text-color);
+        --button-border-color: var(--border-color);
+
+        &:hover {
+            opacity: 100%;
+            background-color: oklch(0 0 0 / 10%);
+        }
+    }
 }
 
-:where(button)::after,
-[data-type="button"]::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    inset-block-start: 1px;
-    border-radius: calc(var(--rounded-base) - 1px);
-    box-shadow: 0 -1px 0 var(--background-color);
-    opacity: 40%;
-}
-
-:where(button):hover,
-[data-type="button"]:hover {
-    opacity: 90%;
-}
-
-:where(button)[data-variant="outline"],
-[data-type="button"][data-variant="outline"] {
-    --button-background-color: transparent;
-    --button-text-color: var(--text-color);
-    --button-border-color: var(--border-color);
-}
-
-:where(button)[data-variant="outline"]:hover,
-[data-type="button"][data-variant="outline"]:hover {
-    opacity: 100%;
-    background-color: oklch(0 0 0 / 10%);
-}
-
-:where(select) {
+select {
     outline: none;
     border: 1px solid var(--border-color);
     border-radius: var(--rounded-base);
@@ -159,6 +168,7 @@ main {
     height: var(--size-08);
 }
 
+/* Component specific styles */
 [data-component="searches-form"] {
     max-width: 32rem;
 }
@@ -173,16 +183,16 @@ main {
     margin-block-start: var(--size-03);
     display: grid;
     gap: var(--size-01);
-}
 
-[data-slot="field"] > span {
-    font-size: var(--text-size-base);
-}
+    & > span {
+        font-size: var(--text-size-base);
+    }
 
-[data-slot="field"][data-variant="horizontal"] {
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    width: fit-content;
+    &[data-variant="horizontal"] {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        width: fit-content;
+    }
 }
 
 [data-slot="actions"] {
@@ -198,10 +208,10 @@ main {
 
 [data-slot="input"] {
     font-size: var(--text-size-base);
-}
 
-[data-slot="input"][data-variant="half"] {
-    width: 50%;
+    &[data-variant="half"] {
+        width: 50%;
+    }
 }
 
 [data-component="errors"] {
@@ -212,6 +222,7 @@ main {
     background-color: var(--error-background-color);
 }
 
+/* Responsive styles */
 @media (min-width: 600px) {
     [data-slot="label"],
     [data-slot="input"] {
@@ -222,8 +233,9 @@ main {
     }
 }
 
-/* Styles for searches table */
+/* Searches table styles */
 [data-component="searches"] {
+    margin-block-start: var(--size-04);
     border: 1px solid var(--border-color);
     border-radius: var(--rounded-base);
     box-shadow: var(--default-shadow);
@@ -260,7 +272,6 @@ main {
     & th {
         font-weight: 600;
         color: var(--text-color);
-        /* background-color: var(--secondary-color); */
         background-image: var(--dot-pattern);
         background-size: var(--dot-size) var(--dot-size);
         background-position: calc(var(--dot-size) / -2)
@@ -272,6 +283,26 @@ main {
     }
 }
 
-.new-search-button {
-    margin-block-start: var(--size-04);
+[data-component="searches-actions"] {
+    display: flex;
+    align-items: center;
+    gap: var(--size-02);
+
+    & > * {
+        flex-shrink: 0;
+    }
+
+    & > input[type="search"] {
+        max-width: 24rem;
+    }
+}
+
+[data-component="badge"] {
+    display: inline-block;
+    padding-block: var(--size-01);
+    padding-inline: var(--size-02);
+    border-radius: 9999px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-weight: 600;
 }

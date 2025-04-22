@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_21_145518) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_22_035442) do
   create_table "searches", force: :cascade do |t|
     t.string "name"
     t.text "notes"
@@ -19,7 +19,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_145518) do
     t.string "category"
     t.string "condition"
     t.string "postal_code"
-    t.string "type"
+    t.string "listing_type"
     t.integer "price_min_cents"
     t.integer "price_max_cents"
     t.integer "best_offer_max_cents"

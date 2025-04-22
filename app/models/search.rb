@@ -6,4 +6,12 @@ class Search < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :keywords, presence: true, length: { maximum: 600 }
   validates :postal_code, presence: true
+
+  def formatted_listing_type
+    listing_type.gsub("_", " ").capitalize if listing_type.present?
+  end
+
+  def formatted_condition
+    condition.gsub("_", " ").capitalize if condition.present?
+  end
 end

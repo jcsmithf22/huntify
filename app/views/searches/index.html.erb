@@ -1,10 +1,15 @@
 <div>
+  <div data-component="searches-actions">
+    <%= link_to 'New Search', new_search_path, data: { type: "button" } %>
+    <input type="search" placeholder="Search...">
+  </div>
   <div data-component="searches">
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Keywords</th>
+          <th>Search in Description</th>
           <th>Category</th>
           <th>Condition</th>
           <th>Postal Code</th>
@@ -12,15 +17,11 @@
           <th>Min Price</th>
           <th>Max Price</th>
           <th>Best Offer Max</th>
-          <th>Include Description</th>
         </tr>
       </thead>
       <tbody>
         <%= render partial: "row", collection: @searches %>
       </tbody>
     </table>
-  </div>
-  <div class="new-search-button">
-    <%= link_to 'New Search', new_search_path, data: { type: "button" } %>
   </div>
 </div>

@@ -37,7 +37,7 @@
                                          ["Very Good", "very_good"],
                                          ["Good", "good"],
                                          ["Acceptable", "acceptable"]
-                                       ]),
+                                       ], search.condition),
                     {},
                     { data: { slot: "input" } } %>
   </div>
@@ -46,28 +46,28 @@
     <%= form.text_field :postal_code, data: { slot: "input", variant: "half" } %>
   </div>
   <div data-slot="field">
-    <%= form.label :type, data: { slot: "label" } %>
-    <%= form.select :type,
+    <%= form.label :listing_type, data: { slot: "label" } %>
+    <%= form.select :listing_type,
                     options_for_select([
                                          ["All Listing Types", ""],
                                          ["Auction", "auction"],
                                          ["Buy It Now", "buy_it_now"],
                                          ["Classified Ad", "classified"]
-                                       ]),
+                                       ], search.listing_type),
                     {},
                     { data: { slot: "input" } } %>
   </div>
   <div data-slot="three-columns">
     <div data-slot="field">
-      <%= form.label :price_min, "Minimum Price", data: { slot: "label" } %>
+      <%= form.label :price_min, "Minimum price", data: { slot: "label" } %>
       <%= form.number_field :price_min, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
     <div data-slot="field">
-      <%= form.label :price_max, "Maximum Price", data: { slot: "label" } %>
+      <%= form.label :price_max, "Maximum price", data: { slot: "label" } %>
       <%= form.number_field :price_max, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
     <div data-slot="field">
-      <%= form.label :best_offer_max, "Best Offer Maximum", data: { slot: "label" } %>
+      <%= form.label :best_offer_max, "Best offer maximum", data: { slot: "label" } %>
       <%= form.number_field :best_offer_max, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
   </div>
