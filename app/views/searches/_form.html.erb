@@ -59,16 +59,16 @@
   </div>
   <div data-slot="three-columns">
     <div data-slot="field">
-      <%= form.label :price_min_cents, "Minimum Price", data: { slot: "label" } %>
-      <%= form.number_field :price_min_cents, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
+      <%= form.label :price_min, "Minimum Price", data: { slot: "label" } %>
+      <%= form.number_field :price_min, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
     <div data-slot="field">
-      <%= form.label :price_max_cents, "Maximum Price", data: { slot: "label" } %>
-      <%= form.number_field :price_max_cents, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
+      <%= form.label :price_max, "Maximum Price", data: { slot: "label" } %>
+      <%= form.number_field :price_max, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
     <div data-slot="field">
-      <%= form.label :best_offer_max_cents, "Best Offer Maximum", data: { slot: "label" } %>
-      <%= form.number_field :best_offer_max_cents, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
+      <%= form.label :best_offer_max, "Best Offer Maximum", data: { slot: "label" } %>
+      <%= form.number_field :best_offer_max, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
   </div>
   <div data-slot="actions">

@@ -12,25 +12,13 @@
   <td><%= row.postal_code %></td>
   <td><%= row.type.presence || 'All' %></td>
   <td>
-    <% if row.price_min_cents.present? %>
-      <%= number_to_currency(row.price_min_cents.to_f / 100) %>
-    <% else %>
-      —
-    <% end %>
+        <%= number_to_currency(row.price_min).presence || '—' %>
   </td>
   <td>
-    <% if row.price_max_cents.present? %>
-      <%= number_to_currency(row.price_max_cents.to_f / 100) %>
-    <% else %>
-      —
-    <% end %>
+      <%= number_to_currency(row.price_max).presence || '—' %>
   </td>
   <td>
-    <% if row.best_offer_max_cents.present? %>
-      <%= number_to_currency(row.best_offer_max_cents.to_f / 100) %>
-    <% else %>
-      —
-    <% end %>
+      <%= number_to_currency(row.best_offer_max).presence || '—' %>
   </td>
   <td><%= row.include_description? ? 'Yes' : 'No' %></td>
 </tr>
