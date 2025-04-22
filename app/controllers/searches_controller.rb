@@ -2,19 +2,18 @@ class SearchesController < ApplicationController
   before_action :set_search, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @searches = Search.all
+    @searches = Current.user.searches.all
   end
 
   def show
   end
 
   def new
-    @search = Search.new
+    @search = Current.user.searches.new
   end
 
   def create
-    puts search_params
-    @search = Search.new(search_params)
+    @search = Current.user.searches.new(search_params)
     if @search.save
       redirect_to searches_path
     else
@@ -41,7 +40,7 @@ class SearchesController < ApplicationController
   private
 
     def set_search
-      @search = Search.find(params[:id])
+      @search = Current.user.searches.find(params[:id])
     end
 
     def search_params

@@ -20,8 +20,26 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: jobs_development
+  primary:
+    <<: *default
+    database: huntify_development
+    host: localhost
+    username: postgres
+    password: postgres
+  queue:
+    <<: *default
+    database: huntify_development_queue
+    host: localhost
+    username: postgres
+    password: postgres
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: huntify_development_cable
+    host: localhost
+    username: postgres
+    password: postgres
+    migrations_paths: db/cable_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -35,9 +53,7 @@ development:
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: localhost
-  username: postgres
-  password: postgres
+#  host: localhost
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
@@ -57,7 +73,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: jobs_test
+  database: huntify_test
 
   host: localhost
   username: postgres
@@ -86,18 +102,18 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: jobs_production
-    username: jobs
-    password: <%= ENV["JOBS_DATABASE_PASSWORD"] %>
+    database: huntify_production
+    username: huntify
+    password: <%= ENV["HUNTIFY_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
-    database: jobs_production_cache
+    database: huntify_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: jobs_production_queue
+    database: huntify_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: jobs_production_cable
+    database: huntify_production_cable
     migrations_paths: db/cable_migrate

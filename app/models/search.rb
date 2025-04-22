@@ -1,4 +1,6 @@
 class Search < ApplicationRecord
+  belongs_to :user
+
   monetize :price_min_cents, allow_nil: true
   monetize :price_max_cents, allow_nil: true
   monetize :best_offer_max_cents, allow_nil: true
