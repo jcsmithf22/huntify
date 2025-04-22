@@ -2,12 +2,12 @@ class PeriodicSearchJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    # Eager load all Searches with their associated User
-    searches = Search.includes(:user).all
+    # Load all Searches (without eager loading User)
+    searches = Search.all
 
-    # Example: iterate over each search and access its user
+    # Queue a job for each search
     searches.each do |search|
-      Rails.logger.info "Search name: #{search.name}"
+      ExecuteSearchJob.perform_later(search.id)
     end
   end
 end

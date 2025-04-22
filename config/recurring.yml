@@ -9,7 +9,7 @@
 #     priority: 2
 #     schedule: at 5am every day
 
-development:
-  periodic_search_job:
-    class: PeriodicSearchJob
-    schedule: every 30 seconds
+# development:
+#   periodic_search_job:
+#     class: PeriodicSearchJob
+#     schedule: every 30 seconds
