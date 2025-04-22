@@ -10,16 +10,25 @@
  */
 
 body {
-    --background-color: #ffffff;
-    --secondary-color: #e5e5e5;
-    --accent-color: #fca311;
-    --border-color: #cecece;
-    --primary-color: #14213d;
-    --text-color: #000000;
+    --background-color: oklch(1 0 0);
+    --lightest-color: oklch(0.96 0 0);
+    --secondary-color: oklch(0.92 0 0);
+    --accent-color: oklch(0.79 0.1674 70.04);
+    --border-color: oklch(0.85 0 0);
+    --primary-color: oklch(0.25 0.0562 264);
+    --text-color: oklch(0 0 0);
 
-    --default-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    --hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    --active-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --focus-ring-color: var(--secondary-color);
+    --error-color: var(--accent-color);
+    --error-focus-color: oklch(0.79 0.1674 70.04 / 40%);
+    --error-background-color: oklch(0.79 0.1674 70.04 / 10%);
+
+    --dot-pattern: radial-gradient(var(--secondary-color) 1px, transparent 1px);
+    --dot-size: 5px;
+
+    --default-shadow: 0 2px 5px oklch(0 0 0 / 10%);
+    --hover-shadow: 0 4px 8px oklch(0 0 0 / 15%);
+    --active-shadow: 0 1px 3px oklch(0 0 0 / 20%);
 
     --size-01: 0.25rem;
     --size-02: 0.5rem;
@@ -36,6 +45,8 @@ body {
     --size-13: 5rem;
     --size-14: 6rem;
 
+    --rounded-base: var(--size-02);
+
     font-family: "Satoshi-Variable", sans-serif;
 
     --text-size-sm: 0.875rem;
@@ -47,10 +58,11 @@ main {
     padding-inline: var(--size-04);
 }
 
-:where(input:not([type="file"], [type="checkbox"], [type="radio"], [type="submit"])) {
-    outline: none;
+:where(
+    input:not([type="file"], [type="checkbox"], [type="radio"], [type="submit"])
+) {
     border: 1px solid var(--border-color);
-    border-radius: var(--size-02);
+    border-radius: var(--rounded-base);
     padding-block: 0;
     padding-inline: var(--size-02);
     box-shadow: var(--default-shadow);
@@ -58,10 +70,23 @@ main {
     height: var(--size-08);
 }
 
-:where(textarea) {
+.field_with_errors :where(input, textarea, select) {
+    --focus-ring-color: var(--error-focus-color);
+    border-color: var(--error-color);
+}
+
+:where(input, button, textarea, select, a) {
     outline: none;
+    outline-offset: 0;
+}
+
+:where(input, button, textarea, select, a):focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+}
+
+:where(textarea) {
     border: 1px solid var(--border-color);
-    border-radius: var(--size-02);
+    border-radius: var(--rounded-base);
     padding-block: var(--size-01);
     padding-inline: var(--size-02);
     box-shadow: var(--default-shadow);
@@ -72,10 +97,61 @@ main {
     width: fit-content;
 }
 
+:where(button),
+[data-type="button"] {
+    --button-border-color: var(--primary-color);
+    --button-background-color: var(--primary-color);
+    --button-text-color: var(--background-color);
+    position: relative;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    cursor: pointer;
+    border: none;
+    padding-block: var(--size-01);
+    padding-inline: var(--size-03);
+    border-radius: var(--rounded-base);
+    font-size: var(--text-size-sm);
+    height: var(--size-08);
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    text-decoration: none;
+    border: 1px solid var(--button-border-color);
+}
+
+:where(button)::after,
+[data-type="button"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    inset-block-start: 1px;
+    border-radius: calc(var(--rounded-base) - 1px);
+    box-shadow: 0 -1px 0 var(--background-color);
+    opacity: 40%;
+}
+
+:where(button):hover,
+[data-type="button"]:hover {
+    opacity: 90%;
+}
+
+:where(button)[data-variant="outline"],
+[data-type="button"][data-variant="outline"] {
+    --button-background-color: transparent;
+    --button-text-color: var(--text-color);
+    --button-border-color: var(--border-color);
+}
+
+:where(button)[data-variant="outline"]:hover,
+[data-type="button"][data-variant="outline"]:hover {
+    opacity: 100%;
+    background-color: oklch(0 0 0 / 10%);
+}
+
 :where(select) {
     outline: none;
     border: 1px solid var(--border-color);
-    border-radius: var(--size-02);
+    border-radius: var(--rounded-base);
     padding-block: 0;
     padding-inline: var(--size-02);
     box-shadow: var(--default-shadow);
@@ -97,10 +173,23 @@ main {
     margin-block-start: var(--size-03);
     display: grid;
     gap: var(--size-01);
+}
 
-    & > span {
-        font-size: var(--text-size-base);
-    }
+[data-slot="field"] > span {
+    font-size: var(--text-size-base);
+}
+
+[data-slot="field"][data-variant="horizontal"] {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    width: fit-content;
+}
+
+[data-slot="actions"] {
+    display: flex;
+    align-items: center;
+    gap: var(--size-02);
+    margin-block-start: var(--size-06);
 }
 
 [data-slot="label"] {
@@ -111,8 +200,16 @@ main {
     font-size: var(--text-size-base);
 }
 
-[data-slot="actions"] {
+[data-slot="input"][data-variant="half"] {
+    width: 50%;
+}
+
+[data-component="errors"] {
     margin-block-start: var(--size-03);
+    padding: var(--size-03);
+    border: 1px solid var(--error-color);
+    border-radius: var(--rounded-base);
+    background-color: var(--error-background-color);
 }
 
 @media (min-width: 600px) {
@@ -120,10 +217,61 @@ main {
     [data-slot="input"] {
         font-size: var(--text-size-sm);
     }
-
-    [data-slot="field"] {
-        & > span {
-            font-size: var(--text-size-sm);
-        }
+    [data-slot="field"] > span {
+        font-size: var(--text-size-sm);
     }
+}
+
+/* Styles for searches table */
+[data-component="searches"] {
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounded-base);
+    box-shadow: var(--default-shadow);
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    & table {
+        width: 100%;
+        min-width: 1000px;
+        border-collapse: collapse;
+        background-color: var(--background-color);
+    }
+
+    & th,
+    & td {
+        padding: var(--size-03);
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        font-size: var(--text-size-sm);
+        white-space: nowrap;
+    }
+
+    & td[data-cell="keywords"] {
+        white-space: normal;
+        word-wrap: break-word;
+        max-width: 200px;
+        min-width: 150px;
+    }
+
+    & tr:last-child td {
+        border-bottom: none;
+    }
+
+    & th {
+        font-weight: 600;
+        color: var(--text-color);
+        /* background-color: var(--secondary-color); */
+        background-image: var(--dot-pattern);
+        background-size: var(--dot-size) var(--dot-size);
+        background-position: calc(var(--dot-size) / -2)
+            calc(var(--dot-size) / -2);
+    }
+
+    & tbody tr:hover {
+        background-color: var(--lightest-color);
+    }
+}
+
+.new-search-button {
+    margin-block-start: var(--size-04);
 }

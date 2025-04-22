@@ -1,6 +1,7 @@
+<%# locals: (search:, submit_text: "Submit") %>
 <%= form_with model: search, data: { component: "searches-form" } do |form| %>
   <% if search.errors.any? %>
-    <div>
+    <div data-component="errors">
       <p><%= pluralize(search.errors.count, "error") %> prohibited this search from being saved:</p>
       <ul>
         <% search.errors.full_messages.each do |message| %>
@@ -9,30 +10,23 @@
       </ul>
     </div>
   <% end %>
-
   <div data-slot="field">
     <%= form.label :name, data: { slot: "label" } %>
     <%= form.text_field :name, data: { slot: "input" } %>
   </div>
-
   <div data-slot="field">
     <%= form.label :notes, data: { slot: "label" } %>
     <%= form.text_area :notes, rows: 3, data: { slot: "input" } %>
   </div>
-
   <div data-slot="field">
     <%= form.label :keywords, data: { slot: "label" } %>
-    <%= form.text_area :keywords, rows: 2, data: { slot: "input" } %>
-    <span>Enter keywords separated by commas</span>
+    <%= form.text_field :keywords, rows: 2, data: { slot: "input" } %>
+    <span>Enter your eBay search keywords</span>
   </div>
-
-  <div data-slot="field">
-    <%= form.label :include_description, data: { slot: "label" } %>
+  <div data-slot="field" data-variant="horizontal">
     <%= form.check_box :include_description, data: { slot: "input" } %>
-    <span>Include description in search</span>
+    <%= form.label :include_description, "Include description in search", data: { slot: "label" } %>
   </div>
-
-
   <div data-slot="field">
     <%= form.label :condition, data: { slot: "label" } %>
     <%= form.select :condition,
@@ -45,15 +39,12 @@
                                          ["Acceptable", "acceptable"]
                                        ]),
                     {},
-                    { data: { slot: "input" } }
-    %>
+                    { data: { slot: "input" } } %>
   </div>
-
   <div data-slot="field">
     <%= form.label :postal_code, data: { slot: "label" } %>
-    <%= form.text_field :postal_code, data: { slot: "input" } %>
+    <%= form.text_field :postal_code, data: { slot: "input", variant: "half" } %>
   </div>
-
   <div data-slot="field">
     <%= form.label :type, data: { slot: "label" } %>
     <%= form.select :type,
@@ -64,29 +55,24 @@
                                          ["Classified Ad", "classified"]
                                        ]),
                     {},
-                    { data: { slot: "input" } }
-    %>
+                    { data: { slot: "input" } } %>
   </div>
-
   <div data-slot="three-columns">
     <div data-slot="field">
-      <%= form.label :price_min_cents, "Minimum Price ($)", data: { slot: "label" } %>
-      <%= form.number_field :price_min_cents, min: 0, step: 1, data: { slot: "input" } %>
+      <%= form.label :price_min_cents, "Minimum Price", data: { slot: "label" } %>
+      <%= form.number_field :price_min_cents, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
-
     <div data-slot="field">
-      <%= form.label :price_max_cents, "Maximum Price ($)", data: { slot: "label" } %>
-      <%= form.number_field :price_max_cents, min: 0, step: 1, data: { slot: "input" } %>
+      <%= form.label :price_max_cents, "Maximum Price", data: { slot: "label" } %>
+      <%= form.number_field :price_max_cents, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
-
     <div data-slot="field">
-      <%= form.label :best_offer_max_cents, "Best Offer Maximum ($)", data: { slot: "label" } %>
-      <%= form.number_field :best_offer_max_cents, min: 0, step: 1, data: { slot: "input" } %>
+      <%= form.label :best_offer_max_cents, "Best Offer Maximum", data: { slot: "label" } %>
+      <%= form.number_field :best_offer_max_cents, min: 0, step: 0.01, placeholder: "0.00", data: { slot: "input" } %>
     </div>
   </div>
-
   <div data-slot="actions">
-    <%= link_to "Cancel", searches_path %>
-    <%= form.submit "Create Search" %>
+    <%= link_to "Cancel", searches_path, data: { type: "button", variant: "outline" } %>
+    <%= form.button submit_text %>
   </div>
 <% end %>

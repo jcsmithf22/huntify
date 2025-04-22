@@ -1,0 +1,24 @@
+<tr data-component="search">
+  <td><%= link_to row.name, edit_search_path(row) %></td>
+  <td data-cell="keywords">
+    <% if row.keywords.present? %>
+      <%= row.keywords %>
+    <% else %>
+      —
+    <% end %>
+  </td>
+  <td><%= row.category.presence || 'Any' %></td>
+  <td><%= row.condition.presence || 'Any' %></td>
+  <td><%= row.postal_code %></td>
+  <td><%= row.type.presence || 'All' %></td>
+  <td><%= number_to_currency(row.price_min_cents.to_f / 100) %></td>
+  <td><%= number_to_currency(row.price_max_cents.to_f / 100) %></td>
+  <td>
+    <% if row.best_offer_max_cents.present? %>
+      <%= number_to_currency(row.best_offer_max_cents.to_f / 100) %>
+    <% else %>
+      —
+    <% end %>
+  </td>
+  <td><%= row.include_description? ? 'Yes' : 'No' %></td>
+</tr>
