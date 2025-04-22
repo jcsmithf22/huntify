@@ -33,13 +33,13 @@ development:
     username: postgres
     password: postgres
     migrations_paths: db/queue_migrate
-  cable:
-    <<: *default
-    database: huntify_development_cable
-    host: localhost
-    username: postgres
-    password: postgres
-    migrations_paths: db/cable_migrate
+  # cable:
+  #   <<: *default
+  #   database: huntify_development_cable
+  #   host: localhost
+  #   username: postgres
+  #   password: postgres
+  #   migrations_paths: db/cable_migrate
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -55,18 +55,18 @@ development:
   # domain sockets, so uncomment these lines.
 #  host: localhost
 
-  # The TCP port the server listens on. Defaults to 5432.
-  # If your server runs on a different port number, change accordingly.
-  #port: 5432
+# The TCP port the server listens on. Defaults to 5432.
+# If your server runs on a different port number, change accordingly.
+#port: 5432
 
-  # Schema search path. The server defaults to $user,public
-  #schema_search_path: myapp,sharedapp,public
+# Schema search path. The server defaults to $user,public
+#schema_search_path: myapp,sharedapp,public
 
-  # Minimum log levels, in increasing order:
-  #   debug5, debug4, debug3, debug2, debug1,
-  #   log, notice, warning, error, fatal, and panic
-  # Defaults to warning.
-  #min_messages: notice
+# Minimum log levels, in increasing order:
+#   debug5, debug4, debug3, debug2, debug1,
+#   log, notice, warning, error, fatal, and panic
+# Defaults to warning.
+#min_messages: notice
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

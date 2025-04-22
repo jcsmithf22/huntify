@@ -17,5 +17,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Mount mission control dashboard
-  mount MissionControl::Jobs::Engine, at: "/jobs"
+  # mount MissionControl::Jobs::Engine, at: "/jobs"
+  mount GoodJob::Engine => "jobs"
 end

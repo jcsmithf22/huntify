@@ -23,5 +23,20 @@ module Huntify
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Enable cron enqueuing in this process
+    config.good_job.enable_cron = true
+
+    config.good_job.cron = {
+      # Every 15 minutes, enqueue `ExampleJob.set(priority: -10).perform_later(42, "life", name: "Alice")`
+      recurring_search_task: { # each recurring job must have a unique key
+        cron: "*/1 * * * *", # cron-style scheduling format by fugit gem
+        class: "PeriodicSearchJob", # name of the job class as a String; must reference an Active Job job class
+        # args: [ 42, "life" ], # positional arguments to pass to the job; can also be a proc e.g. `-> { [Time.now] }`
+        # kwargs: { name: "Alice" }, # keyword arguments to pass to the job; can also be a proc e.g. `-> { { name: NAMES.sample } }`
+        # set: { priority: -10 }, # additional Active Job properties; can also be a lambda/proc e.g. `-> { { priority: [1,2].sample } }`
+        description: "Recurring search queuing task" # optional description that appears in Dashboard
+      }
+    }
   end
 end
