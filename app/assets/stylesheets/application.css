@@ -62,6 +62,10 @@ a {
     color: var(--text-color);
 }
 
+h1 {
+    letter-spacing: -0.05ch;
+}
+
 /* Form elements styling */
 input:not([type="file"], [type="checkbox"], [type="radio"], [type="submit"]) {
     border: 1px solid var(--border-color);
@@ -278,7 +282,7 @@ select {
         background-position: calc(var(--dot-size) / -2) calc(var(--dot-size) / -2);
     }
 
-    & tbody tr:hover {
+    & tbody tr:has(a:hover) {
         background-color: var(--lightest-color);
     }
 }
