@@ -71,3 +71,5 @@ group :test do
 end
 
 gem "good_job", "~> 4.9"
+
+gem "ebay-ruby", "~> 0.4.1"
