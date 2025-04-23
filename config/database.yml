@@ -104,7 +104,7 @@ production:
     <<: *default
     database: huntify_production
     username: huntify
-    password: <%= ENV["HUNTIFY_DATABASE_PASSWORD"] %>
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: huntify_production_cache
