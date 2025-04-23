@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "alert@huntify.app"
+  default from: "huntify@josiahsmith.dev"
   layout "mailer"
 end

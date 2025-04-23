@@ -21,6 +21,7 @@ servers:
 proxy:
   ssl: true
   host: reportify.app
+  forward_headers: true
 
 # Credentials for your image host.
 registry:
