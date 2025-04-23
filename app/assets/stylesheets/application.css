@@ -314,3 +314,9 @@ select {
 [data-component="sessions-form"] {
     max-width: 24rem;
 }
+
+[data-component="header"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,25 +1,25 @@
-<h1>Search Results</h1>
+<h1>Search Results for <%= @search.name %> </h1>
 
-<p>Hello <%= @search.name %>, here are your search results:</p>
+<p><%= @results.length %> results found for your search with the keywords "<%= @search.keywords %>"</p>
 
 <% @results.each do |result| %>
-  <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd;">
-    <h2><%= result["title"] || 'Untitled Item' %></h2>
-    
-    <% if result["image"] && result["image"]["imageUrl"] %>
-      <img src="<%= result["image"]["imageUrl"] %>" alt="<%= result["title"] %>" style="max-width: 200px;">
-    <% end %>
-    
-    <p>
-      Price: <%= result["price"]["value"] %> <%= result["price"]["currency"] %>
-      <br>
-      Condition: <%= result["condition"] %>
-      <br>
-      Seller: <%= result["seller"]["username"] %> (<%= result["seller"]["feedbackPercentage"] %> positive feedback)
-    </p>
-    
-    <p>
-      <a href='<%= result["itemWebUrl"] %>' style="color: #007bff; text-decoration: none;">View Item</a>
-    </p>
-  </div>
+<div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd;">
+  <h2><%= result["title"] || 'Untitled Item' %></h2>
+
+  <% if result["image"] && result["image"]["imageUrl"] %>
+  <img src="<%= result["image"]["imageUrl"] %>" alt="<%= result["title"] %>" style="max-width: 200px;">
+  <% end %>
+
+  <p>
+    Price: <%= result["price"]["value"] %> <%= result["price"]["currency"] %>
+    <br>
+    Condition: <%= result["condition"] %>
+    <br>
+    Seller: <%= result["seller"]["username"] %> (<%= result["seller"]["feedbackPercentage"] %> positive feedback)
+  </p>
+
+  <p>
+    <a href='<%= result["itemWebUrl"] %>' style="color: #007bff; text-decoration: none;">View Item</a>
+  </p>
+</div>
 <% end %>

@@ -7,6 +7,6 @@ class SearchMailer < ApplicationMailer
   def was_found
     @search = params[:search]
     @results = params[:results]
-    mail to: params[:user].email_address
+    mail to: params[:user].email_address, subject: "#{@results.length} results found for #{@search.name}"
   end
 end

@@ -1,4 +1,7 @@
 <div>
-  <h1>Edit Search</h1>
+  <div data-component="header">
+    <h1>Edit Search</h1>
+    <%= button_to "Delete", @search, method: :delete, data: { turbo_confirm: "Are you sure?", variant: "outline" } %>
+  </div>
   <%= render "form", search: @search, submit_text: "Update Search" %>
 </div>
