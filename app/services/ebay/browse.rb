@@ -25,6 +25,7 @@ module Ebay
 
     def search(params = {})
       url = build_url("item_summary", "search")
+      # Rails.logger.info("params: #{params.inspect}")
       http.headers(build_headers).get(url, params: params)
     end
 

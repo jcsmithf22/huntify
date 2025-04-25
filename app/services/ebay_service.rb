@@ -62,13 +62,12 @@ class EbayService
       zip: search.postal_code,
       access_token: access_token,
       market_id: "EBAY_US", # Consider making this configurable
-      category_ids: search.category.presence
     )
 
     filter_string = build_filter_string
-    response = request.search(q: search.keywords, filter: filter_string)
+    response = request.search(q: search.keywords, filter: filter_string, category_ids: search.category.presence)
     results = JSON.parse(response.body)
-    Rails.logger.info("eBay API response: #{results.inspect}")
+    # Rails.logger.info("eBay API response: #{results.inspect}")
 
     if results["errors"]
       error = results["errors"].first
