@@ -7,8 +7,11 @@ class ExecuteSearchJob < ApplicationJob
 
     search_results = EbayService.search(search)
 
-    if search_results.any?
-      SearchMailer.with(search: search, user: user, results: search_results).was_found.deliver_later
+    listings = search_results[:results]
+    total = search_results[:total]
+
+    if listings.any?
+      SearchMailer.with(search: search, user: user, results: listings, total: total).was_found.deliver_later
     end
   end
 end

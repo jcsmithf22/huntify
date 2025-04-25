@@ -2,6 +2,8 @@
 
 <p><%= @results.length %> results found for your search with the keywords "<%= @search.keywords %>"</p>
 
+<p>Total number of results before filtering: <%= @total %>. Limit is 50. Try to reduce this number with additional filters.</p>
+
 <% @results.each do |result| %>
 <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd;">
   <h2><%= result["title"] || 'Untitled Item' %></h2>

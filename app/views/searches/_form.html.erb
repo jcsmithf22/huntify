@@ -24,8 +24,8 @@
   <span>Enter your eBay search keywords</span>
 </div>
 <div data-slot="field" data-variant="horizontal">
-  <%= form.check_box :include_description, data: { slot: "input" } %>
-  <%= form.label :include_description, "Include description in search", data: { slot: "label" } %>
+  <%= form.check_box :title_only, data: { slot: "input" } %>
+  <%= form.label :title_only, "Search title only", data: { slot: "label" } %>
 </div>
 <div data-slot="field">
   <%= form.label :condition, data: { slot: "label" } %>

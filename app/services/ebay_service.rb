@@ -24,10 +24,13 @@ class EbayService
 
     filter_string = build_filter_string
     response = request.search(q: search.keywords, filter: filter_string)
-    results = JSON.parse(response.body)["itemSummaries"] || []
+    results = JSON.parse(response.body)
+    total_results = results["total"] || 0
+    item_summaries = results["itemSummaries"] || []
 
-    # Filter results by title if include_description is false
-    search.include_description ? results : filter_results_by_title(results)
+
+    # Filter results by title if title_only is true
+    { results: search.title_only ? filter_results_by_title(item_summaries): item_summaries, total: total_results }
   end
 
   private

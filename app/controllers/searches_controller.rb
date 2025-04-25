@@ -9,7 +9,7 @@ class SearchesController < ApplicationController
   end
 
   def new
-    @search = Current.user.searches.new(include_description: true)
+    @search = Current.user.searches.new()
   end
 
   def create
@@ -44,6 +44,6 @@ class SearchesController < ApplicationController
     end
 
     def search_params
-      params.expect(search: [ :name, :notes, :keywords, :include_description, :category, :condition, :postal_code, :listing_type, :price_min, :price_max, :best_offer_max ])
+      params.expect(search: [ :name, :notes, :keywords, :title_only, :category, :condition, :postal_code, :listing_type, :price_min, :price_max, :best_offer_max ])
     end
 end
