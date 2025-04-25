@@ -23,14 +23,10 @@
   <%= form.text_field :keywords, rows: 2, data: { slot: "input" } %>
   <span>Enter your eBay search keywords</span>
 </div>
-<%
-=begin%>
 <div data-slot="field" data-variant="horizontal">
   <%= form.check_box :include_description, data: { slot: "input" } %>
   <%= form.label :include_description, "Include description in search", data: { slot: "label" } %>
 </div>
-<%
-=end%>
 <div data-slot="field">
   <%= form.label :condition, data: { slot: "label" } %>
   <%= form.select :condition,

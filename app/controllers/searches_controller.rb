@@ -9,7 +9,7 @@ class SearchesController < ApplicationController
   end
 
   def new
-    @search = Current.user.searches.new
+    @search = Current.user.searches.new(include_description: true)
   end
 
   def create

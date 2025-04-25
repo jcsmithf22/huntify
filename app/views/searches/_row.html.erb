@@ -3,6 +3,9 @@
   <td data-cell="keywords">
     <%= row.keywords %>
   </td>
+  <td>
+    <%= row.include_description ? 'Yes' : 'No' %>
+  </td>
   <td><%= row.category.presence || 'Any' %></td>
   <td><%= row.formatted_condition.presence || 'Any' %></td>
   <td><%= row.postal_code %></td>
