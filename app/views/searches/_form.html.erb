@@ -57,6 +57,21 @@
                     {},
                     { data: { slot: "input" } } %>
 </div>
+<div data-slot="field">
+  <%= form.label :category, data: { slot: "label" } %>
+  <%= form.select :category,
+                  options_for_select([
+                                     ["All Categories", ""], # First option
+                                     # The * (splat) operator expands the array of category options into individual elements
+                                     # Without splat: [["All Categories", ""], [["Books & Magazines", 267], ["Art", 550]]]
+                                     # With splat:    [["All Categories", ""], ["Books & Magazines", 267], ["Art", 550]]
+                                     *EbayService::CATEGORIES.map { |key, value|
+                                       [key.to_s.titleize.gsub('And', '&'), value]
+                                     }.sort_by(&:first)
+                                   ], search.category),
+                  {},
+                  { data: { slot: "input" } } %>
+</div>
 <div data-slot="three-columns">
   <div data-slot="field">
     <%= form.label :price_min, "Minimum price", data: { slot: "label" } %>

@@ -2,6 +2,49 @@ require "ebay/browse"
 require "ebay/oauth/client_credentials_grant"
 
 class EbayService
+  # CATEGORIES is a frozen hash, meaning it cannot be modified after definition
+  # This prevents accidental modifications and improves thread safety
+  # Example usage:
+  #   EbayService::CATEGORIES[:books_and_magazines]  # Returns 267
+  #   EbayService::CATEGORIES.fetch(:art)           # Returns 550, raises KeyError if not found
+  CATEGORIES = {
+    antiques: 20081,
+    art: 550,
+    baby: 2984,
+    books_and_magazines: 267,
+    business_and_industrial: 12576,
+    cameras_and_photo: 625,
+    cell_phones_and_accessories: 15032,
+    clothing_shoes_and_accessories: 11450,
+    coins_and_paper_money: 11116,
+    collectibles: 1,
+    computers_tablets_and_networking: 58058,
+    consumer_electronics: 293,
+    crafts: 14339,
+    dolls_and_bears: 237,
+    movies_and_tv: 11232,
+    entertainment_memorabilia: 45100,
+    gift_cards_and_coupons: 172008,
+    health_and_beauty: 26395,
+    home_and_garden: 11700,
+    jewelry_and_watches: 281,
+    music: 11233,
+    musical_instruments_and_gear: 619,
+    pet_supplies: 1281,
+    pottery_and_glass: 870,
+    real_estate: 10542,
+    specialty_services: 316,
+    sporting_goods: 888,
+    sports_memorabilia_cards_and_fan_shop: 64482,
+    stamps: 260,
+    tickets_and_experiences: 1305,
+    toys_and_hobbies: 220,
+    travel: 3252,
+    video_games_and_consoles: 1249,
+    everything_else: 99,
+    ebay_motors: 6000
+  }.freeze
+
   attr_reader :search, :campaign_id
 
   def initialize(search, campaign_id: "123")
@@ -19,12 +62,20 @@ class EbayService
       campaign_id: @campaign_id,
       zip: search.postal_code,
       access_token: access_token,
-      market_id: "EBAY_US" # Consider making this configurable
+      market_id: "EBAY_US", # Consider making this configurable
+      # category_ids: search.category.presence
     )
 
     filter_string = build_filter_string
     response = request.search(q: search.keywords, filter: filter_string)
     results = JSON.parse(response.body)
+    Rails.logger.info("eBay API response: #{results.inspect}")
+
+    if results["errors"]
+      error = results["errors"].first
+      raise "eBay API Error: #{error['message']} (#{error['errorId']}) - #{error['longMessage']}"
+    end
+
     total_results = results["total"] || 0
     item_summaries = results["itemSummaries"] || []
 

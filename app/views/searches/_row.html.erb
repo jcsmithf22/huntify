@@ -6,7 +6,7 @@
   <td>
     <%= row.title_only ? 'Yes' : 'No' %>
   </td>
-  <td><%= row.category.presence || 'Any' %></td>
+  <td><%= format_category(row.category) %></td>
   <td><%= row.formatted_condition.presence || 'Any' %></td>
   <td><%= row.postal_code %></td>
   <td><%= row.formatted_listing_type.presence || 'All' %></td>
