@@ -72,4 +72,7 @@ end
 
 gem "good_job", "~> 4.9"
 
-gem "ebay-ruby", "~> 0.4.1"
+# gem "ebay-ruby", "~> 0.4.1"
+
+gem "base64", "~> 0.2.0"
+gem "http", "~> 5.2"

@@ -1,5 +1,4 @@
-require "ebay/browse"
-require "ebay/oauth/client_credentials_grant"
+# frozen_string_literal: true
 
 class EbayService
   # CATEGORIES is a frozen hash, meaning it cannot be modified after definition
