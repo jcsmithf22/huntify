@@ -62,7 +62,7 @@ class EbayService
       zip: search.postal_code,
       access_token: access_token,
       market_id: "EBAY_US", # Consider making this configurable
-      # category_ids: search.category.presence
+      category_ids: search.category.presence
     )
 
     filter_string = build_filter_string
