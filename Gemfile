@@ -70,7 +70,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "good_job", "~> 4.9"
+gem "good_job", "~> 4.10"
 
 # gem "ebay-ruby", "~> 0.4.1"
 
